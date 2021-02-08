@@ -8,6 +8,8 @@ var quotesRouter = require('./routes/quotes');
 
 var app = express();
 
+console.log('test');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
