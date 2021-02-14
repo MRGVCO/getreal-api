@@ -15,6 +15,7 @@ const designRoutes = require('./design');
 const emailRoutes = require('./email');
 const floorplanRoutes = require('./floorplan');
 const leadRoutes = require('./lead');
+const photoRoutes = require('./photo');
 
 router.use('/users', userRoutes);
 router.use('/amenities', amenityRoutes);
@@ -25,6 +26,7 @@ router.use('/designs', designRoutes);
 router.use('/emails', emailRoutes);
 router.use('/floorplans', floorplanRoutes);
 router.use('/leads', leadRoutes);
+router.use('/photos', photoRoutes);
 
 
 module.exports = router;
