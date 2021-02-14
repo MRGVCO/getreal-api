@@ -14,6 +14,7 @@ const companyRoutes = require('./company');
 const designRoutes = require('./design');
 const emailRoutes = require('./email');
 const floorplanRoutes = require('./floorplan');
+const leadRoutes = require('./lead');
 
 router.use('/users', userRoutes);
 router.use('/amenities', amenityRoutes);
@@ -23,6 +24,7 @@ router.use('/companies', companyRoutes);
 router.use('/designs', designRoutes);
 router.use('/emails', emailRoutes);
 router.use('/floorplans', floorplanRoutes);
+router.use('/leads', leadRoutes);
 
 
 module.exports = router;
