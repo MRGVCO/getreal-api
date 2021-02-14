@@ -37,12 +37,6 @@ const User = db.define('user', {
   verified: {
     type: Sequelize.BOOLEAN
   },
-  created: {
-    type: Sequelize.STRING
-  },
-  modified: {
-    type: Sequelize.STRING
-  },
   business_id: {
     type: Sequelize.JSON
   },
