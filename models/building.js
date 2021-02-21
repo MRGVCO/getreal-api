@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Business = db.define('business', {
+const Building = db.define('building', {
     name: {
       type: Sequelize.STRING
     },
@@ -57,4 +57,4 @@ const Business = db.define('business', {
 
 
 
-module.exports = Business;
+module.exports = Building;

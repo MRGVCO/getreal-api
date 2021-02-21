@@ -26,11 +26,6 @@ function registerUser(user) {
     return newUser.save();
 }
 
-function registerUser(user) {
-    var newUser = new User(user);
-    return newUser.save();
-}
-
 function updateUser(user, id) {
     return User.update(user, { where: { id: id } });
 }
