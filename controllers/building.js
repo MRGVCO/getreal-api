@@ -1,18 +1,18 @@
-const businessDao = require('../dao/business');
+const buildingDao = require('../dao/building');
 
-var businessController = {
-    getByBusinessId: getByBusinessId,
+var buildingController = {
+    getByBuildingId: getByBuildingId,
     getByCompanyId: getByCompanyId,
     queryTotal: queryTotal,
-    addBusiness : addBusiness,
-    updateBusiness : updateBusiness,
-    deleteBusiness : deleteBusiness,
+    addBuilding : addBuilding,
+    updateBuilding : updateBuilding,
+    deleteBuilding : deleteBuilding,
     findAll : findAll
 }
 
 
 function findAll(req, res) {
-    businessDao.findAll().
+    buildingDao.findAll().
         then((data) => {
             res.send(data);
         })
@@ -22,8 +22,8 @@ function findAll(req, res) {
 }
 
 
-function getByBusinessId(req, res) {
-  businessDao.getByBusinessId(req.params.businessId).
+function getByBuildingId(req, res) {
+  buildingDao.getByBuildingId(req.params.buildingId).
       then((data) => {
           res.send(data);
       })
@@ -33,7 +33,7 @@ function getByBusinessId(req, res) {
 }
 
 function getByCompanyId(req, res) {
-  businessDao.getByCompanyId(req.params.companyId).
+  buildingDao.getByCompanyId(req.params.companyId).
       then((data) => {
           res.send(data);
       })
@@ -43,7 +43,7 @@ function getByCompanyId(req, res) {
 }
 
 function queryTotal(req, res) {
-  businessDao.queryTotal().
+  buildingDao.queryTotal().
       then((data) => {
           res.send(data);
       })
@@ -53,8 +53,8 @@ function queryTotal(req, res) {
 }
 
 
-function addBusiness(req, res) {
-    let business = {
+function addBuilding(req, res) {
+    let building = {
         name: req.body.name,
         company : req.body.company,
         email : req.body.email,
@@ -62,7 +62,7 @@ function addBusiness(req, res) {
     };
 
 
-    businessDao.addBusiness(business).
+    buildingDao.addBuilding(building).
         then((data) => {
             res.send(data);
         })
@@ -71,9 +71,9 @@ function addBusiness(req, res) {
         });
 }
 
-function updateBusiness(req, res) {
+function updateBuilding(req, res) {
 
-  let business = {
+  let building = {
         name:req.body.name,
         address:req.body.address,
         postal_code:req.body.postal_code,
@@ -94,11 +94,11 @@ function updateBusiness(req, res) {
         company:req.body.company,
      }
 
-    businessDao.updateBusiness(business, req.params.businessId).
+    buildingDao.updateBuilding(building, req.params.buildingId).
       then((data) => {
           res.status(200).json({
-              message: "Business updated successfully",
-              business: business
+              message: "Building updated successfully",
+              building: building
           })
       })
       .catch((error) => {
@@ -107,11 +107,11 @@ function updateBusiness(req, res) {
    
 }
 
-function deleteBusiness(req, res){
-  businessDao.deleteBusiness(req.params.businessId).
+function deleteBuilding(req, res){
+  buildingDao.deleteBuilding(req.params.buildingId).
         then((data) => {
             res.status(200).json({
-                message: "Business deleted successfully"
+                message: "Building deleted successfully"
             })
         })
         .catch((error) => {
@@ -120,7 +120,7 @@ function deleteBusiness(req, res){
 }
 
 
-module.exports = businessController;
+module.exports = buildingController;
 
 
 
