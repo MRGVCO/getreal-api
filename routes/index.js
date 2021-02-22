@@ -17,6 +17,7 @@ const floorplanRoutes = require('./floorplan');
 const leadRoutes = require('./lead');
 const photoRoutes = require('./photo');
 const authenticateRoutes = require('./authenticate');
+const mtaRoutes = require('./mta');
 
 router.use('/users', userRoutes);
 router.use('/amenities', amenityRoutes);
@@ -29,6 +30,7 @@ router.use('/floorplans', floorplanRoutes);
 router.use('/leads', leadRoutes);
 router.use('/photos', photoRoutes);
 router.use('/authenticate', authenticateRoutes);
+router.use('/mta', mtaRoutes);
 
 
 module.exports = router;

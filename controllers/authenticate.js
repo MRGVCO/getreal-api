@@ -1,29 +1,31 @@
 const AWS = require("aws-sdk");
 const generator = require('generate-password');
 const CognitoExpress = require("cognito-express");
+const dotenv = require('dotenv');
+dotenv.config();
 
 AWS.config.update({
-    accessKeyId: "AKIAJHLOPV4FTQCA7DUA",
-    secretAccessKey: "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",
-    region: "us-west-2"
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    region: process.env.REGION
 });
 
 const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider({
-  apiVersion: "2016-04-19",
-  region: "us-west-2"
+  apiVersion: process.env.API_VERSION,
+  region: process.env.REGION
 });
 
 const poolData = {
-  UserPoolId: 'us-west-2_YNVBFHssb', // your user pool ID
-  ClientId: '3gqdfmrrg45j9itktgs9s9dde6', // generated in the AWS console
-  Paranoia: 7 // an integer between 1 - 10
+  UserPoolId: process.env.USER_POOL_ID,
+  ClientId: process.env.CLIENT_ID, // generated in the AWS console
+  Paranoia: process.env.PARANOIA // an integer between 1 - 10
 };
 
 const CognitoUserPoolWrapper = require('cognito-user-pool')(poolData);
 
 const cognitoExpress = new CognitoExpress({
-    region: "us-west-2",
-    cognitoUserPoolId: "us-west-2_YNVBFHssb",
+    region: process.env.REGION,
+    cognitoUserPoolId: process.env.USER_POOL_ID,
     tokenUse: "access", //Possible Values: access | id
     tokenExpiration: 3600000 //Up to default expiration of 1 hour (3600000 ms)
 });

@@ -10,6 +10,7 @@ var photoController = {
 }
 
 function getByBusinessId(req, res) {
+
   photoDao.getByBusinessId(req.params.businessId).
       then((data) => {
           res.send(data);
