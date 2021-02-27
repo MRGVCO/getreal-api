@@ -1,29 +1,31 @@
 const AWS = require("aws-sdk");
 const generator = require('generate-password');
 const CognitoExpress = require("cognito-express");
+const dotenv = require('dotenv');
+dotenv.config();
 
 AWS.config.update({
-    accessKeyId: "AKIAJHLOPV4FTQCA7DUA",
-    secretAccessKey: "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",
-    region: "us-west-2"
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    region: process.env.REGION
 });
 
 const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider({
-  apiVersion: "2016-04-19",
-  region: "us-west-2"
+  apiVersion: process.env.API_VERSION,
+  region: process.env.REGION
 });
 
 const poolData = {
-  UserPoolId: 'us-west-2_YNVBFHssb', // your user pool ID
-  ClientId: '3gqdfmrrg45j9itktgs9s9dde6', // generated in the AWS console
-  Paranoia: 7 // an integer between 1 - 10
+  UserPoolId: process.env.USER_POOL_ID,
+  ClientId: process.env.CLIENT_ID, // generated in the AWS console
+  Paranoia: process.env.PARANOIA // an integer between 1 - 10
 };
 
 const CognitoUserPoolWrapper = require('cognito-user-pool')(poolData);
 
 const cognitoExpress = new CognitoExpress({
-    region: "us-west-2",
-    cognitoUserPoolId: "us-west-2_YNVBFHssb",
+    region: process.env.REGION,
+    cognitoUserPoolId: process.env.USER_POOL_ID,
     tokenUse: "access", //Possible Values: access | id
     tokenExpiration: 3600000 //Up to default expiration of 1 hour (3600000 ms)
 });
@@ -31,7 +33,7 @@ const cognitoExpress = new CognitoExpress({
 
 var authenticateController = {
     adminSignUp: adminSignUp,
-    adminDeleteUser : adminDeleteUser,    
+    adminDeleteUser : adminDeleteUser,
     changePassword : changePassword,
     signup : signup,
     confirm : confirm,
@@ -56,7 +58,7 @@ function adminSignUp(req, res) {
   });
 
   var poolData = {
-    UserPoolId: "us-west-2_YNVBFHssb",
+    UserPoolId: process.env.USER_POOL_ID,
     Username: req.body.email,
     DesiredDeliveryMediums: ["EMAIL"],
     TemporaryPassword: password,
@@ -72,7 +74,7 @@ function adminSignUp(req, res) {
     ]
   };
 
-  
+
   COGNITO_CLIENT.adminCreateUser(poolData, (error, data) => {
     if(error){
       return res.send(error);
@@ -86,10 +88,10 @@ function adminSignUp(req, res) {
 
 function adminDeleteUser(req, res) {
       const poolData = {
-        UserPoolId: "us-west-2_YNVBFHssb",
+        UserPoolId: process.env.USER_POOL_ID,
         Username: req.body.email,
       };
-      
+
       COGNITO_CLIENT.adminDeleteUser(poolData, (error, data) => {
         if(error){
           return res.send(error);
@@ -128,10 +130,10 @@ function signup(req, res){
     uppercase : true,
     lowercase : true
   });
-  
+
   const params = {
     "username": req.body.email,
-    "password": password   
+    "password": password
   }
 
   const cb = data =>{
@@ -147,7 +149,7 @@ function confirm(req, res){
 
   const params = {
     "username": req.body.username,
-    "confirmationCode": req.body.code   
+    "confirmationCode": req.body.code
   }
   CognitoUserPoolWrapper.signupConfirm(params, cb)
 }
@@ -166,16 +168,16 @@ function resendConfirm(req, res){
 function login(req, res){
   const cb = (error, success) =>{
     if(error){
-     return res.send(error);   
+     return res.send(error);
     }
     else{
-     return res.send(success);    
+     return res.send(success);
     }
   }
 
   const params = {
     "username": req.body.username,
-    "password": req.body.password   
+    "password": req.body.password
   }
 
   CognitoUserPoolWrapper.login(params, cb)
@@ -184,10 +186,10 @@ function login(req, res){
 function logout(req, res){
   const cb = (error, success) =>{
     if(error){
-     return res.send(error);   
+     return res.send(error);
     }
     else{
-     return res.send(success);    
+     return res.send(success);
     }
   }
 
@@ -203,10 +205,10 @@ function logout(req, res){
 function validate(req, res){
   cognitoExpress.validate(req.body.accessToken, function(err, response) {
     if (err) {
-        return res.send(err);           
+        return res.send(err);
     } else {
         //Else API has been authenticated. Proceed.
-        return res.send(response);    
+        return res.send(response);
     }
   });
 }
@@ -214,10 +216,10 @@ function validate(req, res){
 function profile(req, res){
   CognitoUserPoolWrapper.profile(req.body, function(err, response) {
     if (err) {
-        return res.send(err);           
+        return res.send(err);
     } else {
         //Else API has been authenticated. Proceed.
-        return res.send(response);    
+        return res.send(response);
     }
   });
 }
@@ -225,10 +227,10 @@ function profile(req, res){
 function profileEdit(req, res){
   CognitoUserPoolWrapper.profileEdit(req.body, function(err, response) {
     if (err) {
-        return res.send(err);           
+        return res.send(err);
     } else {
         //Else API has been authenticated. Proceed.
-        return res.send(response);    
+        return res.send(response);
     }
   });
 }

@@ -12,14 +12,13 @@ var userController = {
 }
 
 function findUserByUserId(req, res) {
-	console.log(req.params.userId);
 	userDao.findByUserId(req.params.userId).
 	    then((data) => {
 	        res.send(data);
 	    })
 	    .catch((error) => {
 	        console.log(error);
-	    });	
+	    });
 }
 
 
@@ -30,19 +29,18 @@ function findUserByUserEmail(req, res) {
 	    })
 	    .catch((error) => {
 	        console.log(error);
-	    });	
+	    });
 }
 
 
 function findUserById(req, res) {
-	console.log(req.params.id);
 	userDao.findById(req.params.id).
 	    then((data) => {
 	        res.send(data);
 	    })
 	    .catch((error) => {
 	        console.log(error);
-	    });	
+	    });
 }
 
 function findUsers(req, res) {
@@ -72,7 +70,7 @@ function registerUser(req, res) {
 	    photo : req.body.photo,
 	    phone: req.body.phone,
 	    user_id : req.body.user_id,
-	    temporary_password : password, 
+	    temporary_password : password,
 	    created: (new Date()).toISOString(),
 	    modified: req.body.modified
   	};
@@ -88,7 +86,7 @@ function registerUser(req, res) {
 function updateUser(req, res) {
 
   let user = {
-	    f_name: req.body.f_name, 
+	    f_name: req.body.f_name,
 	   	l_name: req.body.l_name,
 	    user_level: req.body.user_level,
 	    about: req.body.about,
@@ -98,7 +96,7 @@ function updateUser(req, res) {
 	    verified: req.body.verified,
 	    user_level: req.body.user_level,
 	    business_id: req.body.business_id,
-	    company_id: req.body.company_id 
+	    company_id: req.body.company_id
   	};
 
   	userDao.updateUser(user, req.params.id).
@@ -111,7 +109,7 @@ function updateUser(req, res) {
 	    .catch((error) => {
 	        console.log(error);
 	    });
-   
+
 }
 
 function deleteUserById(req, res){
@@ -130,7 +128,3 @@ function deleteUserById(req, res){
 
 
 module.exports = userController;
-
-
-
-
